@@ -3,7 +3,13 @@ var Queue = function() {
   newQ.storage = {};
   newQ.smallestIndex = 0;
   newQ.largestIndex = 0;
-  extend(newQ, Queue.queueMethods);
+
+  newQ.enqueue = queueMethods.enqueue;
+  newQ.dequeue = queueMethods.dequeue;
+  newQ.size = queueMethods.size;
+
+
+  extend(newQ, queueMethods);
 
   return newQ;
 };
@@ -14,21 +20,21 @@ var extend = function(to, from) {
   }
 };
 
-Queue.queueMethods = {};
+var queueMethods = {};
 
-Queue.queueMethods.enqueue = function(value) {
+queueMethods.enqueue = function(value) {
   this.storage[this.largestIndex] = value;
   this.largestIndex++;
 };
 
-Queue.queueMethods.dequeue = function() {
+queueMethods.dequeue = function() {
   var dq = this.storage[this.smallestIndex];
   delete this.storage[this.smallestIndex];
   this.smallestIndex++
   return dq;
 };
 
-Queue.queueMethods.size = function() {
+queueMethods.size = function() {
   return Object.keys(this.storage).length;
 };
 
